@@ -19,7 +19,7 @@ final class NetworkManager {
     }
 
 
-    func getTopNews(_ complitionHandler: @escaping ([Article]) -> Void) {
+    func getTopNews(_ complitionHandler: @escaping ([PopularArticle]) -> Void) {
         let period = 7
         let urlString = "\(Constants.topHeadlines)/viewed/\(period).json?api-key=\(Config.key)"
 
@@ -41,8 +41,8 @@ final class NetworkManager {
     }
     
     
-    func JSONParser(json: [String: Any]) -> [Article] {
-        var results = [Article]()
+    func JSONParser(json: [String: Any]) -> [PopularArticle] {
+        var results = [PopularArticle]()
         if let result = json["results"] as? [Any]{
             for articleItem in result {
                 if let articleItem = articleItem as? [String: Any] {
@@ -81,7 +81,7 @@ final class NetworkManager {
                         }
                         media = mediaArray
                     }
-                    let article = Article(url: url, id: id, published_date: published_date, byline: byline, title: title, abstract: abstract, media: media)
+                    let article = PopularArticle(url: url, id: id, published_date: published_date, byline: byline, title: title, abstract: abstract, media: media)
                     results.append(article)
                 }
             }
@@ -90,7 +90,7 @@ final class NetworkManager {
     }
     
     
-    func getNewswire(source: String, section:String,  _ complitionHandler: @escaping ([NewsItem]) -> Void) {
+    func getNewswire(source: String, section:String,  _ complitionHandler: @escaping ([NewswireArticle]) -> Void) {
         let urlString = "\(Constants.sectionHeadlines+source)/\(section).json?api-key=\(Config.key)"
         print(urlString)
         
@@ -105,60 +105,15 @@ final class NetworkManager {
 
                     let json = try? JSONDecoder().decode(ARIResponse.self, from: safeData)
 
-                    complitionHandler(json?.results ?? [NewsItem(url: "", abstract: "", title: "", byline: "", published_date: "", multimedia: [])])
+                    complitionHandler(json?.results ?? [NewswireArticle(url: "", abstract: "", title: "", byline: "", published_date: "", multimedia: [])])
                 }
             }
             task.resume()
         }
     }
-    
-    
-
 }
 
 
 struct ARIResponse: Codable {
-    let results: [NewsItem]?
+    let results: [NewswireArticle]?
 }
-struct NewsItem: Codable {
-    let url: String
-    let abstract: String?
-    let title: String
-    let byline: String?
-    let published_date: String
-    let multimedia: [Metadata]?
-    
-}
-
-
-
-
-
-
-struct Article {
-    let url: String
-    let id: Int
-    let published_date: String
-    let byline: String
-    let title: String
-    let abstract: String
-    let media: [Media]?
-
-}
-
-struct Media {
-    let caption: String?
-    let mediaMetadata: [Metadata]?
-}
-
-struct Metadata: Codable {
-    let format: String
-    let url: String
-    let height: Int
-    let width: Int
-}
-
-
-
-
-
