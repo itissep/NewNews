@@ -13,6 +13,7 @@
 		2C89879227E34423004904AD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C89879027E34423004904AD /* Main.storyboard */; };
 		2C89879427E34425004904AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C89879327E34425004904AD /* Assets.xcassets */; };
 		2C89879727E34425004904AD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C89879527E34425004904AD /* LaunchScreen.storyboard */; };
+		2C89879F27E3451C004904AD /* config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C89879E27E3451C004904AD /* config.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		2C89879327E34425004904AD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2C89879627E34425004904AD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2C89879827E34425004904AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2C89879E27E3451C004904AD /* config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = config.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 		2C89878927E34423004904AD /* NewNews */ = {
 			isa = PBXGroup;
 			children = (
+				2C89879E27E3451C004904AD /* config.swift */,
 				2C89878A27E34423004904AD /* AppDelegate.swift */,
 				2C89878C27E34423004904AD /* SceneDelegate.swift */,
 				2C89878E27E34423004904AD /* ViewController.swift */,
@@ -139,6 +142,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C89878F27E34423004904AD /* ViewController.swift in Sources */,
+				2C89879F27E3451C004904AD /* config.swift in Sources */,
 				2C89878B27E34423004904AD /* AppDelegate.swift in Sources */,
 				2C89878D27E34423004904AD /* SceneDelegate.swift in Sources */,
 			);
