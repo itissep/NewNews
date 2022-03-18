@@ -17,6 +17,29 @@ final class NetworkManager {
         static let topHeadlines = "https://api.nytimes.com/svc/mostpopular/v2"
         static let sectionHeadlines = "https://api.nytimes.com/svc/news/v3/content/"
     }
+    
+    
+    func getNewswire(source: String, section:String,  _ complitionHandler: @escaping ([NewswireArticle]) -> Void) {
+        let urlString = "\(Constants.sectionHeadlines+source)/\(section).json?api-key=\(Config.key)"
+        print(urlString)
+        
+        if let url = URL(string: urlString) {
+            let session = URLSession(configuration: .default)
+            let task = session.dataTask(with: url) { (data, response, error) in
+                if error != nil {
+                    print(error!)
+                    return
+                }
+                if let safeData = data {
+
+                    let json = try? JSONDecoder().decode(ARIResponse.self, from: safeData)
+
+                    complitionHandler(json?.results ?? [NewswireArticle(url: "", abstract: "", title: "", byline: "", published_date: "", multimedia: [])])
+                }
+            }
+            task.resume()
+        }
+    }
 
 
     func getTopNews(_ complitionHandler: @escaping ([PopularArticle]) -> Void) {
@@ -90,27 +113,7 @@ final class NetworkManager {
     }
     
     
-    func getNewswire(source: String, section:String,  _ complitionHandler: @escaping ([NewswireArticle]) -> Void) {
-        let urlString = "\(Constants.sectionHeadlines+source)/\(section).json?api-key=\(Config.key)"
-        print(urlString)
-        
-        if let url = URL(string: urlString) {
-            let session = URLSession(configuration: .default)
-            let task = session.dataTask(with: url) { (data, response, error) in
-                if error != nil {
-                    print(error!)
-                    return
-                }
-                if let safeData = data {
 
-                    let json = try? JSONDecoder().decode(ARIResponse.self, from: safeData)
-
-                    complitionHandler(json?.results ?? [NewswireArticle(url: "", abstract: "", title: "", byline: "", published_date: "", multimedia: [])])
-                }
-            }
-            task.resume()
-        }
-    }
 }
 
 

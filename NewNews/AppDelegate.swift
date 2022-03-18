@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         window?.backgroundColor = .systemRed
-        window?.rootViewController = FeedController()
+        window?.rootViewController = WelcomeVC()
         
         return true
     }
