@@ -72,12 +72,13 @@ class FeedController: UIViewController {
         button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
         
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .systemRed
+        button.backgroundColor = .systemOrange
         button.layer.cornerRadius = 16
         
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+
 
     
 
@@ -97,68 +98,8 @@ class FeedController: UIViewController {
     }()
     
     @objc func buttonAction() {
-//        NetworkManager.shared.getNewswire(source: "all", section: "all") { articles in
-//            for article in articles {
-//                print(article.title)
-//            }
-//        }
-        
-        let nav = UITabBarController()
-        
-        let vc1 = FirstVC()
-        let vc2 = SecondVC()
-        let vc3 = ThirdVC()
-        let vc4 = ForthVC()
-        
-        
-        vc4.title = "Settings"
-        vc3.title = "Favourite"
-        vc2.title = "Search"
-        vc1.title = "Feed"
-        
-        nav.tabBar.isTranslucent = false
-        nav.view.backgroundColor = .white
-        nav.tabBar.tintColor = .systemOrange
-        
-        nav.setViewControllers([vc1, vc2, vc3, vc4], animated: true)
-        
-        guard let items = nav.tabBar.items else  { return }
-        let images = ["newspaper", "magnifyingglass", "bookmark", "gearshape"]
-        
-        for i in 0 ..< items.count {
-            items[i].image = UIImage(systemName: images[i])
-        }
 
-        nav.modalPresentationStyle = .fullScreen
-        present(nav, animated: true)
-        
     }
-    
-    
-    lazy var navBar: UITabBarController = {
-        let nav = UITabBarController()
-        
-        let vc1 = FirstVC()
-        let vc2 = SecondVC()
-        let vc3 = ThirdVC()
-        let vc4 = ForthVC()
-        
-        vc4.title = "Settings"
-        vc3.title = "Favourite"
-        vc2.title = "Search"
-        vc1.title = "Feed"
-        nav.tabBar.isTranslucent = false
-//        nav.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.orange]
-        nav.tabBar.tintColor = .black
-        nav.tabBar.barTintColor = .orange
-        nav.setViewControllers([vc1, vc2, vc3, vc4], animated: true)
-        
-        
-        
-        
-        return nav
-    }()
-    
     
     
     private func layout(){
@@ -189,39 +130,23 @@ class FeedController: UIViewController {
             
         }
         
-        
-        
-        
     }
 
 }
 
 
 extension FeedController: UICollectionViewDelegate {
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//
-//        let selectedCell = collectionView.cellForItem(at: indexPath) as! TopicCell
-//        selectedCell.bottomView.backgroundColor = .green
-//
-//    }
-    
-
-//
-//    func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
-//        let selectedCell = collectionView.cellForItem(at: indexPath) as! TopicCell
-//        selectedCell.bottomView.backgroundColor = .white
-//    }
-    
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selectedCell = collectionView.cellForItem(at: indexPath) as! TopicCell
-        selectedCell.bottomView.backgroundColor = .red
+        selectedCell.bottomView.backgroundColor = .systemOrange
     }
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         let selectedCell = collectionView.cellForItem(at: indexPath) as! TopicCell
         selectedCell.bottomView.backgroundColor = .white
     }
 }
+
 
 extension FeedController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -232,6 +157,7 @@ extension FeedController: UICollectionViewDelegateFlowLayout {
             return CGSize(width: label.frame.width, height: 32)
         }
 }
+
 
 extension FeedController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -258,7 +184,7 @@ class TopicCell: UICollectionViewCell {
     
     lazy var label: UILabel = {
         let l = UILabel()
-        l.textColor = .green
+        l.textColor = .systemGray
         l.text = "wow"
         return l
     }()
@@ -284,13 +210,6 @@ class TopicCell: UICollectionViewCell {
         label.snp.makeConstraints { make in
             make.center.equalTo(self.contentView)
             make.width.equalTo(self.contentView)
-//            make.left.equalTo(5)
-//            make.height.equalTo(10)
-//            make.top.equalTo(self.contentView)
-//            make.left.equalTo(self.contentView)
-//            make.width.equalTo(self.contentView)
-            
-            
             
         }
     }
@@ -301,22 +220,6 @@ class TopicCell: UICollectionViewCell {
 }
 
 
-
-
-class FirstVC: UIViewController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.view.backgroundColor = .red
-        title = "Feed"
-    }
-}
-class SecondVC: UIViewController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.view.backgroundColor = .green
-        title = "Search"
-    }
-}
 class ThirdVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()

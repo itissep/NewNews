@@ -15,19 +15,62 @@ class WelcomeVC: UIViewController {
         view.backgroundColor = .white
         layout()
 
-        // Do any additional setup after loading the view.
     }
     
     
     lazy var goButton: UIButton = {
-        let btn = UIButton()
+        let button = UIButton()
+        button.setTitle("Go", for: .normal)
+        button.addTarget(self, action: #selector(goBtnPressed), for: .touchUpInside)
         
-        btn.titleLabel?.text = "Go"
-        btn.tintColor = .systemOrange
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = .systemOrange
+        button.layer.cornerRadius = 16
         
-        btn.translatesAutoresizingMaskIntoConstraints = false
-        return btn
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
     }()
+    
+    
+    
+    
+    lazy var navBar: UITabBarController = {
+        let nav = UITabBarController()
+        
+        let vc1 = FeedController()
+        let vc2 = SearchVC()
+        let vc3 = FavsVC()
+        let vc4 = SettingsVC()
+        
+        
+        vc4.title = "Settings"
+        vc3.title = "Favourite"
+        vc2.title = "Search"
+        vc1.title = "Feed"
+        
+        nav.tabBar.isTranslucent = false
+        nav.view.backgroundColor = .white
+        nav.tabBar.tintColor = .systemOrange
+        
+        nav.setViewControllers([vc1, vc2, vc3, vc4], animated: true)
+        
+        if let items = nav.tabBar.items {
+            let images = ["newspaper", "magnifyingglass", "bookmark", "gearshape"]
+            
+            for i in 0 ..< items.count {
+                items[i].image = UIImage(systemName: images[i])
+            }
+        }
+        nav.modalPresentationStyle = .fullScreen
+        return nav
+    }()
+    
+    
+    
+    
+    @objc func goBtnPressed(){
+        present(navBar, animated: true)
+    }
     
     lazy var label: UILabel = {
         let l = UILabel()
@@ -44,27 +87,15 @@ class WelcomeVC: UIViewController {
         label.snp.makeConstraints { make in
             make.center.equalTo(view.center)
             make.height.equalTo(25)
-            make.width.equalTo(225)
         }
-        
         
         
         view.addSubview(goButton)
         goButton.snp.makeConstraints { make in
             make.centerX.equalTo(view)
-            make.top.equalTo(label).offset(20)
-            make.left.equalTo(label).offset(20)
+            make.top.equalTo(label.snp.bottom).offset(10)
+            make.width.equalTo(label)
         }
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

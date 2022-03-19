@@ -11,6 +11,9 @@
 		2C35511427E3C60900B272D4 /* NewswireArticle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C35511327E3C60900B272D4 /* NewswireArticle.swift */; };
 		2C35511627E3C64100B272D4 /* Metadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C35511527E3C64100B272D4 /* Metadata.swift */; };
 		2C35511827E4F70B00B272D4 /* WelcomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C35511727E4F70B00B272D4 /* WelcomeVC.swift */; };
+		2C608A9627E613EA00634720 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C608A9527E613EA00634720 /* SearchVC.swift */; };
+		2C608A9827E6147E00634720 /* FavsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C608A9727E6147E00634720 /* FavsVC.swift */; };
+		2C608A9A27E614BF00634720 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C608A9927E614BF00634720 /* SettingsVC.swift */; };
 		2C89878B27E34423004904AD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C89878A27E34423004904AD /* AppDelegate.swift */; };
 		2C89878F27E34423004904AD /* FeedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C89878E27E34423004904AD /* FeedController.swift */; };
 		2C89879427E34425004904AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C89879327E34425004904AD /* Assets.xcassets */; };
@@ -27,6 +30,9 @@
 		2C35511327E3C60900B272D4 /* NewswireArticle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewswireArticle.swift; sourceTree = "<group>"; };
 		2C35511527E3C64100B272D4 /* Metadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metadata.swift; sourceTree = "<group>"; };
 		2C35511727E4F70B00B272D4 /* WelcomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeVC.swift; sourceTree = "<group>"; };
+		2C608A9527E613EA00634720 /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
+		2C608A9727E6147E00634720 /* FavsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavsVC.swift; sourceTree = "<group>"; };
+		2C608A9927E614BF00634720 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		2C89878727E34423004904AD /* NewNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C89878A27E34423004904AD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2C89878E27E34423004904AD /* FeedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedController.swift; sourceTree = "<group>"; };
@@ -106,7 +112,10 @@
 			isa = PBXGroup;
 			children = (
 				2C89878E27E34423004904AD /* FeedController.swift */,
+				2C608A9527E613EA00634720 /* SearchVC.swift */,
 				2C35511727E4F70B00B272D4 /* WelcomeVC.swift */,
+				2C608A9927E614BF00634720 /* SettingsVC.swift */,
+				2C608A9727E6147E00634720 /* FavsVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -195,13 +204,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C608A9A27E614BF00634720 /* SettingsVC.swift in Sources */,
 				2C35511427E3C60900B272D4 /* NewswireArticle.swift in Sources */,
+				2C608A9627E613EA00634720 /* SearchVC.swift in Sources */,
 				2C35511827E4F70B00B272D4 /* WelcomeVC.swift in Sources */,
 				2C8F0DA227E357FB00337D74 /* NetworkManager.swift in Sources */,
 				2C35511227E3C5CF00B272D4 /* PopularArticle.swift in Sources */,
 				2C8F0D9A27E3546300337D74 /* TypesCollectionVC.swift in Sources */,
 				2C89878F27E34423004904AD /* FeedController.swift in Sources */,
 				2C89879F27E3451C004904AD /* config.swift in Sources */,
+				2C608A9827E6147E00634720 /* FavsVC.swift in Sources */,
 				2C8F0D9C27E3553A00337D74 /* TypesCellVC.swift in Sources */,
 				2C35511627E3C64100B272D4 /* Metadata.swift in Sources */,
 				2C89878B27E34423004904AD /* AppDelegate.swift in Sources */,
