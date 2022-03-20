@@ -7,28 +7,18 @@
 
 import UIKit
 import SnapKit
+import SkeletonView
 
 
 /*
  networking
     top 5
-    latest
- 
- 
- Types collection view
- Types collection cell
- 
+
  top 5 collection view
  top 5 collection cell
  https://medium.com/swlh/swift-carousel-759800aa2952
  
- latest table view
- latest table cell
- 
- menu
-    main
-    search
-    favorite
+refresh for tableView
     
  
  */
@@ -36,6 +26,11 @@ import SnapKit
 class FeedController: UIViewController {
     
     var newswireData: [NewswireArticle]?
+    var currentSection = "all"
+    
+    @objc func buttonAction() {
+        
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,12 +43,15 @@ class FeedController: UIViewController {
         
         newsTableView.dataSource = self
         
-        loadTableView(section: "all")
-
+        
     }
     
-    @objc func buttonAction() {
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
+        newsTableView.isSkeletonable = true
+        newsTableView.showGradientSkeleton(usingGradient: .init(baseColor: .systemOrange), animated: true, delay: 0, transition: .crossDissolve(0.25))
+        loadTableView()
     }
     
     
@@ -96,10 +94,18 @@ class FeedController: UIViewController {
     }()
     
     
+    lazy var refreshControll: UIRefreshControl = {
+        let refresh = UIRefreshControl()
+        refresh.tintColor = .systemOrange
+        refresh.addTarget(self, action: #selector(self.refreshing), for: .valueChanged)
+        
+        return refresh
+    }()
+    
+    
     lazy var newsTableView: UITableView = {
         let tableView = UITableView()
         
-        tableView.backgroundColor = .systemOrange
         tableView.register(NewsTableCell.self, forCellReuseIdentifier: NewsTableCell.reusableId)
         tableView.separatorColor = .clear
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -107,14 +113,26 @@ class FeedController: UIViewController {
     }()
     
     
-    private func loadTableView(section: String){
-        NetworkManager.shared.getNewswire(source: "nyt", section: section) { [weak self] articles in
+    @objc func refreshing(){
+        print("refresh")
+        loadTableView()
+    }
+    
+    
+    private func loadTableView(){
+        newsTableView.showGradientSkeleton(usingGradient: .init(baseColor: .systemOrange), animated: true, delay: 0, transition: .crossDissolve(0.25))
+        
+        NetworkManager.shared.getNewswire(source: "nyt", section: self.currentSection) { [weak self] articles in
             self?.newswireData = articles
             
-            DispatchQueue.main.async {
+            DispatchQueue.main.asyncAfter(deadline: .now()+1) {
                 self?.newsTableView.reloadData()
+                self?.refreshControll.endRefreshing()
+                self?.newsTableView.stopSkeletonAnimation()
+                self?.view.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
             }
         }
+
     }
     
     
@@ -140,7 +158,6 @@ class FeedController: UIViewController {
             make.left.equalTo(view).offset(20)
             make.width.equalTo(view).offset(-20)
             make.height.equalTo(50)
-            
         }
         
         view.addSubview(newsTableView)
@@ -152,11 +169,18 @@ class FeedController: UIViewController {
             
             make.width.equalTo(view).offset(-40)
         }
-        
+        newsTableView.addSubview(refreshControll)
         newsTableView.rowHeight = 150
     }
-
 }
+
+
+extension FeedController: SkeletonTableViewDataSource{
+    func collectionSkeletonView(_ skeletonView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier {
+        return NewsTableCell.reusableId
+    }
+}
+
 
 
 extension FeedController: UITableViewDataSource {
@@ -169,7 +193,7 @@ extension FeedController: UITableViewDataSource {
         if let article = newswireData?[indexPath.row] {
             cell.title.text = article.title
             cell.time.text = article.timeToShow
-            if let imageUrl = article.multimedia?[2].url {
+            if let imageUrl = article.multimedia?.last?.url {
                 cell.image.downloaded(from: imageUrl, contentMode: .scaleAspectFill)
             }
         }
@@ -187,7 +211,8 @@ extension FeedController: UICollectionViewDelegate {
         selectedCell.bottomView.backgroundColor = .systemOrange
         
         guard let section = selectedCell.sectionName else { return }
-        loadTableView(section: section)
+        currentSection = section
+        loadTableView()
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
@@ -195,6 +220,7 @@ extension FeedController: UICollectionViewDelegate {
         selectedCell.bottomView.backgroundColor = .white
     }
 }
+
 
 //MARK: - UICollectionViewDelegateFlowLayout
 extension FeedController: UICollectionViewDelegateFlowLayout {
@@ -206,6 +232,7 @@ extension FeedController: UICollectionViewDelegateFlowLayout {
             return CGSize(width: label.frame.width, height: 32)
         }
 }
+
 
 //MARK: - UICollectionViewDataSource
 extension FeedController: UICollectionViewDataSource {
@@ -223,7 +250,5 @@ extension FeedController: UICollectionViewDataSource {
         
         return cell
     }
-    
-    
 }
 

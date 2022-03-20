@@ -30,9 +30,7 @@ final class NetworkManager {
                     return
                 }
                 if let safeData = data {
-
                     let json = try? JSONDecoder().decode(ARIResponse.self, from: safeData)
-
                     complitionHandler(json?.results ?? [NewswireArticle(url: "", abstract: "", title: "", byline: "", published_date: "", multimedia: [])])
                 }
             }
@@ -53,7 +51,6 @@ final class NetworkManager {
             } else if let data = data {
                 if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
                     let result = self.JSONParser(json: json)
-                    
                     complitionHandler(result)
                 }
             }
@@ -123,10 +120,7 @@ final class NetworkManager {
                     return
                 }
                 if let safeData = data {
-
                     let json = try? JSONDecoder().decode(ResponseSections.self, from: safeData)
-                    print(json)
-
                     complitionHandler(json?.results ?? [Section(section: "nope", display_name: "nope")])
                 }
             }
@@ -141,10 +135,10 @@ struct ARIResponse: Codable {
 }
 
 
-
 struct ResponseSections: Codable {
     let results: [Section]?
 }
+
 
 struct Section: Codable {
     let section: String

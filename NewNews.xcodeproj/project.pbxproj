@@ -19,6 +19,7 @@
 		2C608AA027E6468800634720 /* extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C608A9F27E6468800634720 /* extensions.swift */; };
 		2C608AA227E73DB100634720 /* NewsTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C608AA127E73DB100634720 /* NewsTableCell.swift */; };
 		2C608AA427E74AA000634720 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C608AA327E74AA000634720 /* Constants.swift */; };
+		2C608AA727E75F5200634720 /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 2C608AA627E75F5200634720 /* SkeletonView */; };
 		2C89878B27E34423004904AD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C89878A27E34423004904AD /* AppDelegate.swift */; };
 		2C89878F27E34423004904AD /* FeedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C89878E27E34423004904AD /* FeedController.swift */; };
 		2C89879427E34425004904AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C89879327E34425004904AD /* Assets.xcassets */; };
@@ -60,6 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C608AA727E75F5200634720 /* SkeletonView in Frameworks */,
 				2C8F0D9827E3513300337D74 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -161,6 +163,7 @@
 			name = NewNews;
 			packageProductDependencies = (
 				2C8F0D9727E3513300337D74 /* SnapKit */,
+				2C608AA627E75F5200634720 /* SkeletonView */,
 			);
 			productName = NewNews;
 			productReference = 2C89878727E34423004904AD /* NewNews.app */;
@@ -192,6 +195,7 @@
 			mainGroup = 2C89877E27E34423004904AD;
 			packageReferences = (
 				2C8F0D9627E3513300337D74 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				2C608AA527E75F5200634720 /* XCRemoteSwiftPackageReference "SkeletonView" */,
 			);
 			productRefGroup = 2C89878827E34423004904AD /* Products */;
 			projectDirPath = "";
@@ -448,6 +452,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		2C608AA527E75F5200634720 /* XCRemoteSwiftPackageReference "SkeletonView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Juanpe/SkeletonView.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.7.0;
+			};
+		};
 		2C8F0D9627E3513300337D74 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
@@ -459,6 +471,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		2C608AA627E75F5200634720 /* SkeletonView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2C608AA527E75F5200634720 /* XCRemoteSwiftPackageReference "SkeletonView" */;
+			productName = SkeletonView;
+		};
 		2C8F0D9727E3513300337D74 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2C8F0D9627E3513300337D74 /* XCRemoteSwiftPackageReference "SnapKit" */;

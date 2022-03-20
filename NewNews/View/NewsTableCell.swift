@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import SkeletonView
 
 
 class NewsTableCell: UITableViewCell {
@@ -16,6 +17,7 @@ class NewsTableCell: UITableViewCell {
         let label = UILabel()
         label.text = "Some great label!"
         label.numberOfLines = 3
+        label.isSkeletonable = true
         
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -24,7 +26,9 @@ class NewsTableCell: UITableViewCell {
     lazy var time: UILabel = {
         let label = UILabel()
         label.text = "today"
+        label.numberOfLines = 1
         label.textColor = .systemGray
+        label.isSkeletonable = true
         
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -33,6 +37,7 @@ class NewsTableCell: UITableViewCell {
     
     lazy var image: UIImageView = {
         let imageV = UIImageView()
+        imageV.isSkeletonable = true
         imageV.image = UIImage(named: "someimage")
         imageV.clipsToBounds = true
         imageV.contentMode = .scaleAspectFill
@@ -76,6 +81,8 @@ class NewsTableCell: UITableViewCell {
             make.right.equalTo(contentView)
             make.height.equalTo(40)
         }
+        
+        self.isSkeletonable = true
         
     }
 }
