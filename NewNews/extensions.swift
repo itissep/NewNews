@@ -16,6 +16,13 @@ extension String {
     }
 }
 
+extension UITableView {
+    func scrollToTop() {
+        let indexPath = IndexPath(row: 0, section: 0)
+        self.scrollToRow(at: indexPath, at: .top, animated: true)
+    }
+}
+
 
 extension Date {
     
@@ -76,4 +83,36 @@ extension UIImageView {
         guard let url = URL(string: link) else { return }
         downloaded(from: url, contentMode: mode)
     }
+}
+
+extension UIImage {
+  func resizeImage(targetSize: CGSize) -> UIImage {
+    let size = self.size
+    let widthRatio  = targetSize.width  / size.width
+    let heightRatio = targetSize.height / size.height
+    let newSize = widthRatio > heightRatio ?  CGSize(width: size.width * heightRatio, height: size.height * heightRatio) : CGSize(width: size.width * widthRatio,  height: size.height * widthRatio)
+    let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
+
+    UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+    self.draw(in: rect)
+    let newImage = UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext()
+
+    return newImage!
+  }
+    
+    
+    func withInset(_ insets: UIEdgeInsets) -> UIImage? {
+            let cgSize = CGSize(width: self.size.width + insets.left * self.scale + insets.right * self.scale,
+                                height: self.size.height + insets.top * self.scale + insets.bottom * self.scale)
+
+            UIGraphicsBeginImageContextWithOptions(cgSize, false, self.scale)
+            defer { UIGraphicsEndImageContext() }
+
+            let origin = CGPoint(x: insets.left * self.scale, y: insets.top * self.scale)
+            self.draw(at: origin)
+
+            return UIGraphicsGetImageFromCurrentImageContext()?.withRenderingMode(self.renderingMode)
+        }
+    
 }

@@ -37,15 +37,15 @@ class WelcomeVC: UIViewController {
     lazy var navBar: UITabBarController = {
         let nav = UITabBarController()
         
-        let vc1 = FeedController()
-        let vc2 = SearchVC()
+        let vc1 = NewsVC()
+        let vc2 = BestSellerVC()
         let vc3 = FavsVC()
         let vc4 = SettingsVC()
         
         
         vc4.title = "Settings"
-        vc3.title = "Favourite"
-        vc2.title = "Search"
+        vc3.title = "Bookmarks"
+        vc2.title = "Best Sellers"
         vc1.title = "Feed"
         
         nav.tabBar.isTranslucent = false
@@ -55,7 +55,7 @@ class WelcomeVC: UIViewController {
         nav.setViewControllers([vc1, vc2, vc3, vc4], animated: true)
         
         if let items = nav.tabBar.items {
-            let images = ["newspaper", "magnifyingglass", "bookmark", "gearshape"]
+            let images = ["newspaper", "book", "bookmark", "gearshape"]
             
             for i in 0 ..< items.count {
                 items[i].image = UIImage(systemName: images[i])

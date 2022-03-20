@@ -56,7 +56,6 @@ final class NetworkManager {
             }
         }
         task.resume()
-
     }
     
     
@@ -127,8 +126,76 @@ final class NetworkManager {
             task.resume()
         }
     }
+    
+    
+    func getBookSellers(listName: String, _ complitionHandler: @escaping ([Book]) -> Void){
+        let urlString = "https://api.nytimes.com/svc/books/v3/lists/current/\(listName).json?api-key=\(Config.key)"
+        
+        if let url = URL(string: urlString) {
+            let session = URLSession(configuration: .default)
+            let task = session.dataTask(with: url) { data, response, error in
+                if error != nil {
+                    print(error!)
+                    return
+                }
+                if let safeData = data {
+                    let json = try? JSONDecoder().decode(BookSellersResponse.self, from: safeData)
+                    complitionHandler(json?.results?.books ?? [])
+                }
+            }
+            task.resume()
+        }
+    }
+    
+    func getBookLists( _ complitionHandler: @escaping ([BookList]) -> Void){
+        let urlString = "https://api.nytimes.com/svc/books/v3/lists/names?api-key=\(Config.key)"
+        
+        if let url = URL(string: urlString) {
+            let session = URLSession(configuration: .default)
+            let task = session.dataTask(with: url) { data, response, error in
+                if error != nil {
+                    print(error!)
+                    return
+                }
+                if let safeData = data {
+                    let json = try? JSONDecoder().decode(BookListNamesResponse.self, from: safeData)
+                    complitionHandler(json?.results ?? [])
+                }
+            }
+            task.resume()
+        }
+    }
+    
+}
+struct BookListNamesResponse: Codable {
+    let results:[BookList]?
 }
 
+struct BookList: Codable {
+    let list_name: String
+    let list_name_encoded: String
+}
+
+
+
+
+struct BookSellersResponse: Codable {
+    let results: BookListResult?
+}
+struct BookListResult: Codable {
+    let books:[Book]?
+}
+
+struct Book: Codable {
+    let rank: Int
+    let description: String
+    let title: String
+    let publisher: String
+    let contributor: String
+    let book_image: String
+    let amazon_product_url: String
+    
+}
 
 struct ARIResponse: Codable {
     let results: [NewswireArticle]?

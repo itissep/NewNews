@@ -10,7 +10,7 @@ import UIKit
 
 class TopicCell: UICollectionViewCell {
     
-    static let reuseIdentifier = "cell"
+    static let reuseIdentifier = "topicCellId"
     
     var sectionName: String?
     

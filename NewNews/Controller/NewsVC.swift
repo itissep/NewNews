@@ -17,13 +17,11 @@ import SkeletonView
  top 5 collection view
  top 5 collection cell
  https://medium.com/swlh/swift-carousel-759800aa2952
- 
-refresh for tableView
     
  
  */
 
-class FeedController: UIViewController {
+class NewsVC: UIViewController {
     
     var newswireData: [NewswireArticle]?
     var currentSection = "all"
@@ -42,14 +40,12 @@ class FeedController: UIViewController {
         topicsCollectionView.dataSource = self
         
         newsTableView.dataSource = self
-        
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        newsTableView.isSkeletonable = true
+        
         newsTableView.showGradientSkeleton(usingGradient: .init(baseColor: .systemOrange), animated: true, delay: 0, transition: .crossDissolve(0.25))
         loadTableView()
     }
@@ -81,6 +77,7 @@ class FeedController: UIViewController {
 
 
     lazy var topicsCollectionView: UICollectionView = {
+        //TODO: first "All" selected
         
         let layout = UICollectionViewFlowLayout()
         
@@ -109,6 +106,7 @@ class FeedController: UIViewController {
         tableView.register(NewsTableCell.self, forCellReuseIdentifier: NewsTableCell.reusableId)
         tableView.separatorColor = .clear
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.isSkeletonable = true
         return tableView
     }()
     
@@ -121,6 +119,9 @@ class FeedController: UIViewController {
     
     private func loadTableView(){
         newsTableView.showGradientSkeleton(usingGradient: .init(baseColor: .systemOrange), animated: true, delay: 0, transition: .crossDissolve(0.25))
+        if newswireData != nil {
+            self.newsTableView.scrollToTop()
+        }
         
         NetworkManager.shared.getNewswire(source: "nyt", section: self.currentSection) { [weak self] articles in
             self?.newswireData = articles
@@ -130,9 +131,9 @@ class FeedController: UIViewController {
                 self?.refreshControll.endRefreshing()
                 self?.newsTableView.stopSkeletonAnimation()
                 self?.view.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
+                
             }
         }
-
     }
     
     
@@ -163,11 +164,11 @@ class FeedController: UIViewController {
         view.addSubview(newsTableView)
         newsTableView.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(topicsCollectionView.snp.bottom).offset(10)
-            make.right.equalTo(view).offset(-20)
-            make.left.equalTo(view).offset(20)
+            make.right.equalTo(view)
+            make.left.equalTo(view)
             make.bottom.equalTo(view)
             
-            make.width.equalTo(view).offset(-40)
+            make.width.equalTo(view)
         }
         newsTableView.addSubview(refreshControll)
         newsTableView.rowHeight = 150
@@ -175,15 +176,16 @@ class FeedController: UIViewController {
 }
 
 
-extension FeedController: SkeletonTableViewDataSource{
+//MARK: - SkeletonTableViewDataSource
+extension NewsVC: SkeletonTableViewDataSource{
     func collectionSkeletonView(_ skeletonView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier {
         return NewsTableCell.reusableId
     }
 }
 
 
-
-extension FeedController: UITableViewDataSource {
+//MARK: - UITableViewDataSource
+extension NewsVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return newswireData?.count ?? 0
     }
@@ -204,7 +206,7 @@ extension FeedController: UITableViewDataSource {
 
 
 //MARK: - UICollectionViewDelegate
-extension FeedController: UICollectionViewDelegate {
+extension NewsVC: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selectedCell = collectionView.cellForItem(at: indexPath) as! TopicCell
@@ -223,7 +225,7 @@ extension FeedController: UICollectionViewDelegate {
 
 
 //MARK: - UICollectionViewDelegateFlowLayout
-extension FeedController: UICollectionViewDelegateFlowLayout {
+extension NewsVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
             let label = UILabel(frame: CGRect.zero)
         label.text = K.topics[indexPath.item].display_name
@@ -235,7 +237,7 @@ extension FeedController: UICollectionViewDelegateFlowLayout {
 
 
 //MARK: - UICollectionViewDataSource
-extension FeedController: UICollectionViewDataSource {
+extension NewsVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         K.topics.count
     }
@@ -243,7 +245,7 @@ extension FeedController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let section = K.topics[indexPath.item]
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! TopicCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TopicCell.reuseIdentifier, for: indexPath) as! TopicCell
         cell.backgroundColor = .white
         cell.sectionName = section.section
         cell.label.text = section.display_name

@@ -23,6 +23,7 @@ class NewsTableCell: UITableViewCell {
         return label
     }()
     
+    
     lazy var time: UILabel = {
         let label = UILabel()
         label.text = "today"
@@ -47,6 +48,7 @@ class NewsTableCell: UITableViewCell {
         return imageV
     }()
     
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         layout()
@@ -61,7 +63,7 @@ class NewsTableCell: UITableViewCell {
         self.contentView.addSubview(image)
         image.snp.makeConstraints { make in
             make.top.equalTo(contentView).offset(10)
-            make.left.equalTo(contentView)
+            make.left.equalTo(contentView).offset(20)
             make.height.equalTo(120)
             make.width.equalTo(120)
         }
@@ -70,7 +72,7 @@ class NewsTableCell: UITableViewCell {
         title.snp.makeConstraints { make in
             make.top.equalTo(contentView).offset(30)
             make.left.equalTo(image.snp.right).offset(10)
-            make.right.equalTo(contentView)
+            make.right.equalTo(contentView).offset(-20)
             make.height.equalTo(70)
         }
 
@@ -78,7 +80,7 @@ class NewsTableCell: UITableViewCell {
         time.snp.makeConstraints { make in
             make.bottom.equalTo(contentView).offset(-20)
             make.left.equalTo(image.snp.right).offset(10)
-            make.right.equalTo(contentView)
+            make.right.equalTo(contentView).offset(-20)
             make.height.equalTo(40)
         }
         
