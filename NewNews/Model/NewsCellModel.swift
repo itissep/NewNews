@@ -1,24 +1,31 @@
 //
-//  NewswireArticle.swift
+//  NewsCellModel.swift
 //  NewNews
 //
-//  Created by The GORDEEVS on 17.03.2022.
+//  Created by The GORDEEVS on 19.03.2022.
 //
 
 import Foundation
+import UIKit
 
-struct NewswireArticle: Codable {
-    let url: String
-    let abstract: String?
+
+struct NewsCellModel {
     let title: String
-    let byline: String?
-    let published_date: String
-    let multimedia: [Metadata]?
+    let imageUrl: String
+    let time: String
     
+//    lazy var imageV: UIImageView = {
+//        let iv = UIImageView()
+//        if let url = URL(string: imageUrl) {
+//            iv.load(url: url)
+//        }
+//        return iv
+//    }()
+//
     
     var timeToShow: String {
         get {
-            return timeToShow(from: published_date)
+            return timeToShow(from: time)
         }
     }
     
@@ -44,5 +51,25 @@ struct NewswireArticle: Codable {
         }
         return "who knows when..."
     }
+    
+    init(title: String, imageUrl: String, time: String) {
+        self.imageUrl = imageUrl
+        self.title = title
+        self.time = time
+    }
 }
 
+
+extension UIImageView {
+    func load(url: URL) {
+        DispatchQueue.global().async { [weak self] in
+            if let data = try? Data(contentsOf: url) {
+                if let image = UIImage(data: data) {
+                    DispatchQueue.main.async {
+                        self?.image = image
+                    }
+                }
+            }
+        }
+    }
+}

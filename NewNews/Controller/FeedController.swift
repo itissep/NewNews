@@ -34,6 +34,8 @@ import SnapKit
  */
 
 class FeedController: UIViewController {
+    
+    var newswireData: [NewswireArticle]?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,14 +46,15 @@ class FeedController: UIViewController {
         topicsCollectionView.delegate = self
         topicsCollectionView.dataSource = self
         
+        newsTableView.dataSource = self
         
-        
+        loadTableView(section: "all")
 
     }
     
-    
-    
-    let topics = ["first", "second", "third", "very big one", "first", "second", "third", "first", "second", "third", ]
+    @objc func buttonAction() {
+        
+    }
     
     
     lazy var logoImage: UIImageView = {
@@ -65,10 +68,9 @@ class FeedController: UIViewController {
     }()
     
     
-    
     lazy var btn: UIButton = {
         let button = UIButton()
-        button.setTitle("Go", for: .normal)
+        button.setTitle("Problem", for: .normal)
         button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
         
         button.setTitleColor(.white, for: .normal)
@@ -80,10 +82,6 @@ class FeedController: UIViewController {
     }()
 
 
-    
-
-    
-    
     lazy var topicsCollectionView: UICollectionView = {
         
         let layout = UICollectionViewFlowLayout()
@@ -97,8 +95,26 @@ class FeedController: UIViewController {
         return collectionView
     }()
     
-    @objc func buttonAction() {
-
+    
+    lazy var newsTableView: UITableView = {
+        let tableView = UITableView()
+        
+        tableView.backgroundColor = .systemOrange
+        tableView.register(NewsTableCell.self, forCellReuseIdentifier: NewsTableCell.reusableId)
+        tableView.separatorColor = .clear
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
+    }()
+    
+    
+    private func loadTableView(section: String){
+        NetworkManager.shared.getNewswire(source: "nyt", section: section) { [weak self] articles in
+            self?.newswireData = articles
+            
+            DispatchQueue.main.async {
+                self?.newsTableView.reloadData()
+            }
+        }
     }
     
     
@@ -122,115 +138,92 @@ class FeedController: UIViewController {
         topicsCollectionView.snp.makeConstraints { make in
             make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(70)
             make.left.equalTo(view).offset(20)
-//            make.right.equalTo(view).offset(5)
             make.width.equalTo(view).offset(-20)
             make.height.equalTo(50)
             
-//            make.edges.equalTo(view).inset(UIEdgeInsets(top: 5, left: 10, bottom: 15, right: 20))
-            
         }
         
+        view.addSubview(newsTableView)
+        newsTableView.snp.makeConstraints { (make) -> Void in
+            make.top.equalTo(topicsCollectionView.snp.bottom).offset(10)
+            make.right.equalTo(view).offset(-20)
+            make.left.equalTo(view).offset(20)
+            make.bottom.equalTo(view)
+            
+            make.width.equalTo(view).offset(-40)
+        }
+        
+        newsTableView.rowHeight = 150
     }
 
 }
 
 
+extension FeedController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return newswireData?.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let  cell = tableView.dequeueReusableCell(withIdentifier: NewsTableCell.reusableId) as! NewsTableCell
+        if let article = newswireData?[indexPath.row] {
+            cell.title.text = article.title
+            cell.time.text = article.timeToShow
+            if let imageUrl = article.multimedia?[2].url {
+                cell.image.downloaded(from: imageUrl, contentMode: .scaleAspectFill)
+            }
+        }
+        return cell
+    }
+}
+
+
+
+//MARK: - UICollectionViewDelegate
 extension FeedController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selectedCell = collectionView.cellForItem(at: indexPath) as! TopicCell
         selectedCell.bottomView.backgroundColor = .systemOrange
+        
+        guard let section = selectedCell.sectionName else { return }
+        loadTableView(section: section)
     }
+    
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         let selectedCell = collectionView.cellForItem(at: indexPath) as! TopicCell
         selectedCell.bottomView.backgroundColor = .white
     }
 }
 
-
+//MARK: - UICollectionViewDelegateFlowLayout
 extension FeedController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
             let label = UILabel(frame: CGRect.zero)
-            label.text = topics[indexPath.item]
+        label.text = K.topics[indexPath.item].display_name
         label.font = UIFont(name: "", size: 20)
             label.sizeToFit()
             return CGSize(width: label.frame.width, height: 32)
         }
 }
 
-
+//MARK: - UICollectionViewDataSource
 extension FeedController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        topics.count
+        K.topics.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let section = K.topics[indexPath.item]
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! TopicCell
         cell.backgroundColor = .white
-        cell.label.text = topics[indexPath.item]
+        cell.sectionName = section.section
+        cell.label.text = section.display_name
+        
         return cell
     }
     
     
 }
 
-
-
-class TopicCell: UICollectionViewCell {
-    
-    static let reuseIdentifier = "cell"
-    
-    
-    
-    lazy var label: UILabel = {
-        let l = UILabel()
-        l.textColor = .systemGray
-        l.text = "wow"
-        return l
-    }()
-    
-    lazy var bottomView: UIView = {
-        let v = UIView()
-        v.layer.cornerRadius = 2
-        v.backgroundColor = .white
-        
-        return v
-    }()
-    
-    override init(frame: CGRect) {
-        super.init(frame: .zero)
-        contentView.addSubview(label)
-        contentView.addSubview(bottomView)
-        
-        bottomView.snp.makeConstraints { make in
-            make.width.equalTo(self.contentView)
-            make.height.equalTo(4)
-            make.bottom.equalTo(self.contentView)
-        }
-        label.snp.makeConstraints { make in
-            make.center.equalTo(self.contentView)
-            make.width.equalTo(self.contentView)
-            
-        }
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
-
-class ThirdVC: UIViewController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.view.backgroundColor = .blue
-        title = "Favourite"
-    }
-}
-class ForthVC: UIViewController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.view.backgroundColor = .purple
-        title = "Settings"
-    }
-}

@@ -21,7 +21,6 @@ final class NetworkManager {
     
     func getNewswire(source: String, section:String,  _ complitionHandler: @escaping ([NewswireArticle]) -> Void) {
         let urlString = "\(Constants.sectionHeadlines+source)/\(section).json?api-key=\(Config.key)"
-        print(urlString)
         
         if let url = URL(string: urlString) {
             let session = URLSession(configuration: .default)
@@ -113,10 +112,41 @@ final class NetworkManager {
     }
     
     
+    func getSections( _ complitionHandler: @escaping ([Section]) -> Void) {
+        let urlString = "https://api.nytimes.com/svc/news/v3/content/section-list.json?api-key=\(Config.key)"
 
+        if let url = URL(string: urlString) {
+            let session = URLSession(configuration: .default)
+            let task = session.dataTask(with: url) { (data, response, error) in
+                if error != nil {
+                    print(error!)
+                    return
+                }
+                if let safeData = data {
+
+                    let json = try? JSONDecoder().decode(ResponseSections.self, from: safeData)
+                    print(json)
+
+                    complitionHandler(json?.results ?? [Section(section: "nope", display_name: "nope")])
+                }
+            }
+            task.resume()
+        }
+    }
 }
 
 
 struct ARIResponse: Codable {
     let results: [NewswireArticle]?
+}
+
+
+
+struct ResponseSections: Codable {
+    let results: [Section]?
+}
+
+struct Section: Codable {
+    let section: String
+    let display_name: String
 }
