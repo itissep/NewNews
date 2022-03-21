@@ -29,7 +29,6 @@ class BookCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: .zero)
         contentView.addSubview(imageView)
-        print("bookCell loaded")
         
         imageView.snp.makeConstraints { make in
             make.width.equalTo(self.contentView)

@@ -14,7 +14,6 @@ class WelcomeVC: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         layout()
-
     }
     
     
@@ -32,8 +31,6 @@ class WelcomeVC: UIViewController {
     }()
     
     
-    
-    
     lazy var navBar: UITabBarController = {
         let nav = UITabBarController()
         
@@ -41,7 +38,6 @@ class WelcomeVC: UIViewController {
         let vc2 = BestSellerVC()
         let vc3 = FavsVC()
         let vc4 = SettingsVC()
-        
         
         vc4.title = "Settings"
         vc3.title = "Bookmarks"
@@ -66,11 +62,10 @@ class WelcomeVC: UIViewController {
     }()
     
     
-    
-    
     @objc func goBtnPressed(){
         present(navBar, animated: true)
     }
+    
     
     lazy var label: UILabel = {
         let l = UILabel()
@@ -81,6 +76,7 @@ class WelcomeVC: UIViewController {
         l.translatesAutoresizingMaskIntoConstraints = false
         return l
     }()
+    
     
     func layout(){
         view.addSubview(label)
@@ -97,5 +93,4 @@ class WelcomeVC: UIViewController {
             make.width.equalTo(label)
         }
     }
-
 }

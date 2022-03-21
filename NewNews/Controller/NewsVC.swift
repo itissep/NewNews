@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import SkeletonView
+import Network
 
 
 /*
@@ -39,6 +40,7 @@ class NewsVC: UIViewController {
         topicsCollectionView.delegate = self
         topicsCollectionView.dataSource = self
         
+        newsTableView.delegate = self
         newsTableView.dataSource = self
     }
     
@@ -184,6 +186,24 @@ extension NewsVC: SkeletonTableViewDataSource{
 }
 
 
+//MARK: - UITableViewDelegate
+extension NewsVC: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath) as! NewsTableCell
+        let articleView = NewsArticleVC()
+        articleView.article = cell.article ?? NewswireArticle(url: "https://www.youtube.com/watch?v=HNOOeRVq9Xw", abstract: "Original!!! Some words special for this perfect article about nothing and everythind at one time! ", title: "Some cool long title for an article", byline: "by someone special", published_date: "", multimedia: nil)
+        articleView.coverImageView.downloaded(from: cell.article?.multimedia?.last?.url ?? "https://cdn.steemitimages.com/DQmRyzGkae4wYAg4iit6V1UrEhcdSctqRwKMMnkVc2kNFSh/Dump%20Truck%20Plastic.jpg")
+        articleView.coverImageView.contentMode = .scaleAspectFill
+        
+        if let sheet = articleView.sheetPresentationController {
+            sheet.detents = [.medium(), .large()]
+            sheet.prefersGrabberVisible = true
+            sheet.prefersScrollingExpandsWhenScrolledToEdge = false
+        }
+        present(articleView, animated: true)
+    }
+}
+
 //MARK: - UITableViewDataSource
 extension NewsVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -192,13 +212,16 @@ extension NewsVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let  cell = tableView.dequeueReusableCell(withIdentifier: NewsTableCell.reusableId) as! NewsTableCell
+        
         if let article = newswireData?[indexPath.row] {
+            cell.article = article
             cell.title.text = article.title
             cell.time.text = article.timeToShow
             if let imageUrl = article.multimedia?.last?.url {
                 cell.image.downloaded(from: imageUrl, contentMode: .scaleAspectFill)
             }
         }
+        
         return cell
     }
 }

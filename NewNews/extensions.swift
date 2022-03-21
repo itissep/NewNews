@@ -73,7 +73,7 @@ extension UIImageView {
                 let image = UIImage(data: data)
                     
                 else { return }
-            
+            //FIXIT: загрузка фоток после пропажи скелетона
             DispatchQueue.main.async() { [weak self] in
                 self?.image = image
             }

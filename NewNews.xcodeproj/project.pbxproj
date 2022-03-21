@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C2D2D3727E8BF7C00C13459 /* FavouriteRealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2D2D3627E8BF7C00C13459 /* FavouriteRealmModel.swift */; };
+		2C2D2D3A27E8D80900C13459 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2D2D3927E8D80900C13459 /* RealmManager.swift */; };
 		2C35511227E3C5CF00B272D4 /* PopularArticle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C35511127E3C5CF00B272D4 /* PopularArticle.swift */; };
 		2C35511427E3C60900B272D4 /* NewswireArticle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C35511327E3C60900B272D4 /* NewswireArticle.swift */; };
 		2C35511627E3C64100B272D4 /* Metadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C35511527E3C64100B272D4 /* Metadata.swift */; };
@@ -30,9 +32,14 @@
 		2C8F0D9A27E3546300337D74 /* TypesCollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8F0D9927E3546300337D74 /* TypesCollectionVC.swift */; };
 		2C8F0D9C27E3553A00337D74 /* TypesCellVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8F0D9B27E3553A00337D74 /* TypesCellVC.swift */; };
 		2C8F0DA227E357FB00337D74 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8F0DA127E357FB00337D74 /* NetworkManager.swift */; };
+		2C93A62427E7BA74002DDBE3 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 2C93A62327E7BA74002DDBE3 /* Realm */; };
+		2C93A62627E7BA74002DDBE3 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2C93A62527E7BA74002DDBE3 /* RealmSwift */; };
+		2C93A62827E7BBC5002DDBE3 /* NewsArticleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C93A62727E7BBC5002DDBE3 /* NewsArticleVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2C2D2D3627E8BF7C00C13459 /* FavouriteRealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteRealmModel.swift; sourceTree = "<group>"; };
+		2C2D2D3927E8D80900C13459 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		2C35511127E3C5CF00B272D4 /* PopularArticle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularArticle.swift; sourceTree = "<group>"; };
 		2C35511327E3C60900B272D4 /* NewswireArticle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewswireArticle.swift; sourceTree = "<group>"; };
 		2C35511527E3C64100B272D4 /* Metadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metadata.swift; sourceTree = "<group>"; };
@@ -56,6 +63,7 @@
 		2C8F0D9927E3546300337D74 /* TypesCollectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypesCollectionVC.swift; sourceTree = "<group>"; };
 		2C8F0D9B27E3553A00337D74 /* TypesCellVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypesCellVC.swift; sourceTree = "<group>"; };
 		2C8F0DA127E357FB00337D74 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		2C93A62727E7BBC5002DDBE3 /* NewsArticleVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsArticleVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +71,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C93A62627E7BA74002DDBE3 /* RealmSwift in Frameworks */,
+				2C93A62427E7BA74002DDBE3 /* Realm in Frameworks */,
 				2C608AA727E75F5200634720 /* SkeletonView in Frameworks */,
 				2C8F0D9827E3513300337D74 /* SnapKit in Frameworks */,
 			);
@@ -71,6 +81,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2C2D2D3827E8D7EB00C13459 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				2C2D2D3927E8D80900C13459 /* RealmManager.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		2C89877E27E34423004904AD = {
 			isa = PBXGroup;
 			children = (
@@ -90,6 +108,7 @@
 		2C89878927E34423004904AD /* NewNews */ = {
 			isa = PBXGroup;
 			children = (
+				2C2D2D3827E8D7EB00C13459 /* Data */,
 				2C8F0DA027E3578300337D74 /* Networking */,
 				2C89879E27E3451C004904AD /* config.swift */,
 				2C608AA327E74AA000634720 /* Constants.swift */,
@@ -121,6 +140,7 @@
 			children = (
 				2C35511127E3C5CF00B272D4 /* PopularArticle.swift */,
 				2C35511527E3C64100B272D4 /* Metadata.swift */,
+				2C2D2D3627E8BF7C00C13459 /* FavouriteRealmModel.swift */,
 				2C608A9D27E6226C00634720 /* NewsCellModel.swift */,
 				2C35511327E3C60900B272D4 /* NewswireArticle.swift */,
 			);
@@ -134,6 +154,7 @@
 				2C608A9527E613EA00634720 /* BestSellerVC.swift */,
 				2C608AA827E7ADF500634720 /* BookCell.swift */,
 				2C35511727E4F70B00B272D4 /* WelcomeVC.swift */,
+				2C93A62727E7BBC5002DDBE3 /* NewsArticleVC.swift */,
 				2C608A9927E614BF00634720 /* SettingsVC.swift */,
 				2C608A9727E6147E00634720 /* FavsVC.swift */,
 			);
@@ -167,6 +188,8 @@
 			packageProductDependencies = (
 				2C8F0D9727E3513300337D74 /* SnapKit */,
 				2C608AA627E75F5200634720 /* SkeletonView */,
+				2C93A62327E7BA74002DDBE3 /* Realm */,
+				2C93A62527E7BA74002DDBE3 /* RealmSwift */,
 			);
 			productName = NewNews;
 			productReference = 2C89878727E34423004904AD /* NewNews.app */;
@@ -199,6 +222,7 @@
 			packageReferences = (
 				2C8F0D9627E3513300337D74 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				2C608AA527E75F5200634720 /* XCRemoteSwiftPackageReference "SkeletonView" */,
+				2C93A62227E7BA73002DDBE3 /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = 2C89878827E34423004904AD /* Products */;
 			projectDirPath = "";
@@ -226,17 +250,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C93A62827E7BBC5002DDBE3 /* NewsArticleVC.swift in Sources */,
 				2C608A9A27E614BF00634720 /* SettingsVC.swift in Sources */,
 				2C35511427E3C60900B272D4 /* NewswireArticle.swift in Sources */,
 				2C608A9627E613EA00634720 /* BestSellerVC.swift in Sources */,
 				2C35511827E4F70B00B272D4 /* WelcomeVC.swift in Sources */,
 				2C8F0DA227E357FB00337D74 /* NetworkManager.swift in Sources */,
 				2C608A9C27E615D400634720 /* TopicCell.swift in Sources */,
+				2C2D2D3727E8BF7C00C13459 /* FavouriteRealmModel.swift in Sources */,
 				2C608AA927E7ADF500634720 /* BookCell.swift in Sources */,
 				2C35511227E3C5CF00B272D4 /* PopularArticle.swift in Sources */,
 				2C8F0D9A27E3546300337D74 /* TypesCollectionVC.swift in Sources */,
 				2C608A9E27E6226C00634720 /* NewsCellModel.swift in Sources */,
 				2C89878F27E34423004904AD /* NewsVC.swift in Sources */,
+				2C2D2D3A27E8D80900C13459 /* RealmManager.swift in Sources */,
 				2C89879F27E3451C004904AD /* config.swift in Sources */,
 				2C608AA027E6468800634720 /* extensions.swift in Sources */,
 				2C608A9827E6147E00634720 /* FavsVC.swift in Sources */,
@@ -472,6 +499,14 @@
 				kind = branch;
 			};
 		};
+		2C93A62227E7BA73002DDBE3 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -484,6 +519,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2C8F0D9627E3513300337D74 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		2C93A62327E7BA74002DDBE3 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2C93A62227E7BA73002DDBE3 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		2C93A62527E7BA74002DDBE3 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2C93A62227E7BA73002DDBE3 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

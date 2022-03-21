@@ -12,6 +12,7 @@ import SkeletonView
 
 class NewsTableCell: UITableViewCell {
     static let reusableId = "newsTableCellId"
+    var article: NewswireArticle?
     
     lazy var title: UILabel = {
         let label = UILabel()
