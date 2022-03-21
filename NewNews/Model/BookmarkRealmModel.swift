@@ -9,7 +9,7 @@ import UIKit
 import RealmSwift
 
 
-class Favourite: Object {
+class Bookmark: Object {
     @Persisted var url: String
     @Persisted var abstract: String?
     @Persisted var byline: String?

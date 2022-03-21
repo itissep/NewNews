@@ -36,7 +36,7 @@ class WelcomeVC: UIViewController {
         
         let vc1 = NewsVC()
         let vc2 = BestSellerVC()
-        let vc3 = FavsVC()
+        let vc3 = BookmarksVC()
         let vc4 = SettingsVC()
         
         vc4.title = "Settings"
