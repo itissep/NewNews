@@ -26,10 +26,6 @@ class NewsVC: UIViewController {
     
     var newswireData: [NewswireArticle]?
     var currentSection = "all"
-    
-    @objc func buttonAction() {
-        
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,7 +43,6 @@ class NewsVC: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        
         newsTableView.showGradientSkeleton(usingGradient: .init(baseColor: .systemOrange), animated: true, delay: 0, transition: .crossDissolve(0.25))
         loadTableView()
     }
@@ -61,20 +56,6 @@ class NewsVC: UIViewController {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
         return imageView
-    }()
-    
-    
-    lazy var btn: UIButton = {
-        let button = UIButton()
-        button.setTitle("Problem", for: .normal)
-        button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
-        
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .systemOrange
-        button.layer.cornerRadius = 16
-        
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
     }()
 
 
@@ -132,7 +113,6 @@ class NewsVC: UIViewController {
                 self?.refreshControll.endRefreshing()
                 self?.newsTableView.stopSkeletonAnimation()
                 self?.view.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
-                
             }
         }
     }
@@ -148,11 +128,6 @@ class NewsVC: UIViewController {
             make.height.equalTo(40)
         }
         
-        view.addSubview(btn)
-        btn.snp.makeConstraints { (make) -> Void in
-            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
-            make.right.equalTo(view).offset(-20)
-        }
         
         view.addSubview(topicsCollectionView)
         topicsCollectionView.snp.makeConstraints { make in
@@ -228,7 +203,6 @@ extension NewsVC: UITableViewDataSource {
                 cell.image.downloaded(from: imageUrl, contentMode: .scaleAspectFill)
             }
         }
-        
         return cell
     }
 }
