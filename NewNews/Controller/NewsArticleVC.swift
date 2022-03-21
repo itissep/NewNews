@@ -6,11 +6,12 @@
 //
 
 import UIKit
-import SwiftUI
+
 
 class NewsArticleVC: UIViewController {
     
     var article: NewswireArticle?
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +25,11 @@ class NewsArticleVC: UIViewController {
         }
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        RealmManager.shared.update()
+    }
     
     lazy var coverImageView: UIImageView = {
         let imageView = UIImageView()
@@ -125,7 +131,7 @@ class NewsArticleVC: UIViewController {
     
     lazy var btn: UIButton = {
         let button = UIButton()
-        button.setTitle("To article", for: .normal)
+        button.setTitle("To article".localized(), for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
         button.backgroundColor = .systemOrange
         button.titleLabel?.adjustsFontSizeToFitWidth = true
@@ -168,6 +174,7 @@ class NewsArticleVC: UIViewController {
     }()
     
     
+    //MARK: - layout
     private func layout(){
         view.backgroundColor = .white
 

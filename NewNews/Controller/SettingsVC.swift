@@ -13,7 +13,7 @@ class SettingsVC: UIViewController {
         super.viewDidLoad()
 
         view.backgroundColor = .systemCyan
-        title = "Settings"
+        title = "Settings".localized()
     }
     
 

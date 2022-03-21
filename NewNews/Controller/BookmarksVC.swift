@@ -16,7 +16,7 @@ class BookmarksVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
-        title = "Bookmarks"
+        title = "Bookmarks".localized()
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -25,14 +25,17 @@ class BookmarksVC: UIViewController {
         }
         
         self.hideKeyboardWhenTappedAround()
-        self.tableView.reloadData()
         layout()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.tableView.reloadData()
     }
     
     
     lazy var searchField: UITextField = {
         let textField = UITextField()
-        textField.attributedPlaceholder = NSAttributedString(string: "search",
+        textField.attributedPlaceholder = NSAttributedString(string: "search".localized(),
                                                              attributes:[NSAttributedString.Key.foregroundColor: UIColor.systemGray])
         textField.backgroundColor = .white
         textField.layer.cornerRadius = 16
@@ -142,6 +145,7 @@ class BookmarksVC: UIViewController {
 }
 
 
+//MARK: - UITextFieldDelegate
 extension BookmarksVC: UITextFieldDelegate {
 
     @objc private func buttonAction(){
@@ -160,7 +164,7 @@ extension BookmarksVC: UITextFieldDelegate {
         if searchField.text != "" {
             return true
         } else {
-            searchField.placeholder = "type something"
+            searchField.placeholder = "type something".localized()
             return false
         }
     }
@@ -181,7 +185,9 @@ extension BookmarksVC: UITableViewDelegate {
             sheet.prefersGrabberVisible = true
             sheet.prefersScrollingExpandsWhenScrolledToEdge = false
         }
-        present(articleView, animated: true)
+        present(articleView, animated: true) {
+            self.tableView.deselectRow(at: indexPath, animated: true)
+        }
     }
 }
 
@@ -195,6 +201,11 @@ extension BookmarksVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let  cell = tableView.dequeueReusableCell(withIdentifier: NewsTableCell.reusableId) as! NewsTableCell
+        
+        let view = UIView()
+        let color: UIColor = UIColor( red: CGFloat(250.0/255.0), green: CGFloat(113.0/255.0), blue: CGFloat(30.0/255.0), alpha: CGFloat(0.2) )
+        view.backgroundColor = color
+        cell.selectedBackgroundView = view
         
         let bookmark = bookmarks[indexPath.row]
         cell.article = NewswireArticle(url: bookmark.url, abstract: bookmark.abstract, title: bookmark.title, byline: bookmark.byline, published_date: bookmark.published_date, multimedia: nil)

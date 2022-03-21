@@ -13,22 +13,13 @@ struct NewsCellModel {
     let title: String
     let imageUrl: String
     let time: String
-    
-//    lazy var imageV: UIImageView = {
-//        let iv = UIImageView()
-//        if let url = URL(string: imageUrl) {
-//            iv.load(url: url)
-//        }
-//        return iv
-//    }()
-//
+
     
     var timeToShow: String {
         get {
             return timeToShow(from: time)
         }
     }
-    
     
 
     func timeToShow(from: String) -> String {
@@ -37,15 +28,17 @@ struct NewsCellModel {
                 let minsBetween = Date.minutesBetweenDates(date, Date())
                 if minsBetween < 60 {
                     let minsInt = Int(minsBetween)
-                    return "\(minsInt) minutes ago"
+                    //FIXIT: локализация не работает!!!
+                    let string = "minutes ago".localized()
+                    return "\(minsInt)" + string
                 } else {
                     let time = date.dateAndTimetoString(format: "hh:mm a")
-                    return "today at \(time)"
+                    return "today at".localized() + time
                 }
             }
             if date.isYesterday(){
                 let time = date.dateAndTimetoString(format: "hh:mm a")
-                return "yesterday at \(time)"
+                return "yesterday at".localized() + time
             }
             return date.dateAndTimetoString(format: "dd MMM' at 'hh:mm a")
         }

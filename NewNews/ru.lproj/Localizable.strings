@@ -1,0 +1,40 @@
+/* 
+  Localizable.strings
+  NewNews
+
+  Created by The GORDEEVS on 21.03.2022.
+  
+*/
+
+"Feed" = "Новости";
+"Best Sellers" = "Книжные хиты";
+"Bookmarks" = "Избранное";
+"Settings" = "Настройки";
+
+
+"All" = "Все";
+"Arts" = "Искусство";
+"Books" = "Книги";
+"Business" = "Бизнес";
+"Climate" = "Климат";
+"Education" = "Образование";
+"Movies" = "Кино";
+"New York" = "NY";
+"Science" = "Наука";
+"Technology" = "Технологии";
+"Travel" = "Путешествия";
+"World" = "Мир";
+
+"today at" = "сегодня в";
+"yesterday at" = "вчера в";
+"now" = "только что";
+"minutes ago" = "минут назад";
+
+"search" = "поиск";
+"type something" = "впиши что-нибудь";
+
+"To article" = "К статье";
+
+"Wanna find out news?" = "Хочешь немного новостей?";
+"Go" = "Вперед";
+

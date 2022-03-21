@@ -19,7 +19,7 @@ class BestSellerVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
-        title = "Best Sellers"
+        title = "Best Sellers".localized()
         
         layout()
         collectionView.dataSource = self

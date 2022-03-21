@@ -19,7 +19,7 @@ class WelcomeVC: UIViewController {
     
     lazy var goButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Go", for: .normal)
+        button.setTitle("Go".localized(), for: .normal)
         button.addTarget(self, action: #selector(goBtnPressed), for: .touchUpInside)
         
         button.setTitleColor(.white, for: .normal)
@@ -39,10 +39,10 @@ class WelcomeVC: UIViewController {
         let vc3 = BookmarksVC()
         let vc4 = SettingsVC()
         
-        vc4.title = "Settings"
-        vc3.title = "Bookmarks"
-        vc2.title = "Best Sellers"
-        vc1.title = "Feed"
+        vc4.title = "Settings".localized()
+        vc3.title = "Bookmarks".localized()
+        vc2.title = "Best Sellers".localized()
+        vc1.title = "Feed".localized()
         
         nav.tabBar.isTranslucent = false
         nav.view.backgroundColor = .white
@@ -69,7 +69,7 @@ class WelcomeVC: UIViewController {
     
     lazy var label: UILabel = {
         let l = UILabel()
-        l.text = "Wanna find out news?"
+        l.text = "Wanna find out news?".localized()
         l.textColor = .systemOrange
         l.numberOfLines = 0
         

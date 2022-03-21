@@ -21,6 +21,10 @@ struct RealmManager {
         }
     }
     
+    func update(){
+        realm.refresh()
+    }
+    
     
     func getFavourites(_ complitionHandler: @escaping (Results<Bookmark>) -> Void){
         let items = realm.objects(Bookmark.self).sorted(byKeyPath: "published_date", ascending: false)

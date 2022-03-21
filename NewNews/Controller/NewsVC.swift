@@ -114,7 +114,6 @@ class NewsVC: UIViewController {
     
     
     @objc func refreshing(){
-        print("refresh")
         loadTableView()
     }
     
@@ -138,7 +137,7 @@ class NewsVC: UIViewController {
         }
     }
     
-    
+    //MARK: - layout
     private func layout(){
         
         view.addSubview(logoImage)
@@ -200,9 +199,12 @@ extension NewsVC: UITableViewDelegate {
             sheet.prefersGrabberVisible = true
             sheet.prefersScrollingExpandsWhenScrolledToEdge = false
         }
-        present(articleView, animated: true)
+        present(articleView, animated: true) {
+            self.newsTableView.deselectRow(at: indexPath, animated: true)
+        }
     }
 }
+
 
 //MARK: - UITableViewDataSource
 extension NewsVC: UITableViewDataSource {
@@ -212,6 +214,11 @@ extension NewsVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let  cell = tableView.dequeueReusableCell(withIdentifier: NewsTableCell.reusableId) as! NewsTableCell
+        
+        let view = UIView()
+        let color: UIColor = UIColor( red: CGFloat(250.0/255.0), green: CGFloat(113.0/255.0), blue: CGFloat(30.0/255.0), alpha: CGFloat(0.2) )
+        view.backgroundColor = color
+        cell.selectedBackgroundView = view
         
         if let article = newswireData?[indexPath.row] {
             cell.article = article
